@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        .stop:调用event。stopPropagation().
+        .prevent:调用event.preventDefult()   阻止默认行为
+        .self:只当事件时从监听器绑定的元素本身触发时才出发回调
+     -->
+    <script src="./lib/vue.js"></script>
+    <div id="box">
+        <div class="parentdiv" @click='parentfn()'>
+            parentdiv
+            <div class="childdiv" @click.stop='childfn()'>childdiv</div>
+        </div>
+        <!-- 第二种 -->
+        <div class="parentdiv" @click.self='parentfn()'>
+            parentdiv
+            <div class="childdiv" @click.stop='childfn()'>childdiv</div>
+        </div>
+        <input type="text" name="" id="" @keyup.13="enter">
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {},
+        methods: {
+            parentfn() {
+                console.log("parentfn");
+            },
+            childfn() {
+                console.log("childfn");
+            },
+            enter() {
+                console.log("按回车了");
+            }
+        }
+    })
+</script>
+
+</html>

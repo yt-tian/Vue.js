@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 第二步创建view视图层：显示数据 -->
+    <div id="box"></div>
+</body>
+<!-- 第一步引入js -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+//   第三步：创建model层，实例化Vue对象
+let vm = new Vue({
+    el:'#box',
+    data:{
+        temp:'张三123'
+    },
+    // 函数 方法
+    methods:{
+        // 方法1...
+    }
+})
+</script>
+</html>

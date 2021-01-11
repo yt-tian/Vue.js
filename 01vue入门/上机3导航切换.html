@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .active {
+        background-color: rgb(250, 83, 139);
+    }
+    
+    #box {
+        border: solid 1px rgb(166, 245, 166);
+        width: 500px;
+        height: 500px;
+        text-align: center;
+    }
+    
+    ul {
+        width: 100%;
+        height: 100px;
+    }
+    
+    ul>li {
+        float: left;
+        width: 100px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        list-style: none;
+        background-color: rgb(164, 211, 94);
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    .show {
+        background-color: rgb(164, 211, 94);
+    }
+</style>
+
+<body>
+    <div id="box">
+        <ul>
+            <li v-for="(val,index) in prolist" @click=fn(index) :class="{active:val.istrue}">{{val.name}}</li>
+        </ul>
+        <div>你选择了 <span class="show" v-for="(val,index) in prolist" v-show="val.istrue">{{val.name}}</span></div>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#box",
+        data: {
+            // 动态绑定属性
+            prolist: [{
+                name: 'HTML',
+                istrue: true
+            }, {
+                name: 'CSS',
+                istrue: false
+            }, {
+                name: 'Javascript',
+                istrue: false
+            }, {
+                name: 'Vue.js',
+                istrue: false
+            }]
+        },
+        methods: {
+            fn(id) {
+                console.log(id);
+                for (var i in this.prolist) {
+                    this.prolist[i].istrue = false
+                }
+                this.prolist[id].istrue = !this.prolist[id].istrue
+            }
+        }
+    })
+</script>
+
+</html>

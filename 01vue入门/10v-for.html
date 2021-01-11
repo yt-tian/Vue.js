@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 遍历data中的数据，并在页面中进行数据展示 -->
+
+<body>
+    <div id="box">
+        <ul>
+            <!-- 遍历 -->
+            <li v-for="(val,name,index) in user">
+                对象属性值：{{val}}---对象属性名：{{name}}====对象索引{{index}}
+            </li>
+        </ul>
+        <ul>
+            <!-- 遍历 -->
+            <li v-for='val in user'>
+                对象属性值：{{val}}
+            </li>
+        </ul>
+        <!-- 遍历数组 -->
+        <ul>
+            <li v-for="(item,index) in arr">
+                {{item}},{{index}}
+            </li>
+        </ul>
+        <ul>
+            <!-- 遍历对象数组 -->
+            <li v-for='item in prolisrt'>
+                {{item.product}}：价格：{{item.price}}：尺寸：
+                <span v-for="(item,idnex) in item.size">{{item}},</span>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            // 对象
+            user: {
+                name: 'zhangsan',
+                age: 20,
+
+            },
+            // 数组
+            arr: ["电视机", "电脑", "d电冰箱"],
+            prolisrt: [{
+                product: "电视",
+                price: 1000,
+                size: [55, 56, 58]
+            }, {
+                product: "电视2",
+                price: 3000,
+            }, {
+                product: "电视3",
+                price: 4000,
+            }, ]
+
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 
+    双向绑定
+ -->
+
+<body>
+    <div id="box">
+        <h1>{{msg}}</h1>
+        <input type="text" name="" id="" v-model="msg">
+        <input type="radio" value="男" v-model="user.sex">男
+        <input type="radio" value="女" v-model="user.sex">女
+
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            msg: 'hello',
+            user: {
+                sex: '女'
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./lib/vue.js"></script>
+    <div id="box">
+       <div v-if="show=='a'">我是一个diva</div>
+       <div v-else-if="show=='b'">我是一个divb</div>
+       <div v-else>我是一个divc</div>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el:"#box",
+        data:{
+            show:'a'
+        }
+    })
+</script>
+</html>

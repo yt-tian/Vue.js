@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+        
+        .myborder {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<!-- 
+    用于处理html标签动态属性
+    v-bind:属性 = 表达式
+    简写：:属性 = 表达式
+ -->
+
+<body>
+    <div id="box">
+        <!-- 方式一：动态绑定属性，可以说class，也可以是src id... -->
+        <div v-bind:class="myClass">我是一个div1</div>
+        <!-- 简写方式： -->
+        <div :class="myClass">我是一个div0</div>
+        <!--方式二： 动态绑定类名称{类名称：表达式条件} -->
+        <div v-bind:class="{active:hasActive}">我是一个div2</div>
+        <div v-bind:class="{active:hasActive,myborder:hasBorder}">我是一个div3</div>
+        <!-- 方式三：类名作为一组属性值 -->
+        <div :class='[classA,classB]'>div4</div>
+        <!-- 三元表达式 -->
+        <div :class="[classA,isShow?'':classB]">div5</div>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            //    动态绑定属性
+            myClass: 'active',
+            hasActive: true,
+            hasBorder: true,
+            classObj: {
+                'active': false,
+                "myborder": true
+            },
+            classA: 'active',
+            classB: 'myborder',
+            isShow: true
+        }
+    })
+</script>
+
+</html>
