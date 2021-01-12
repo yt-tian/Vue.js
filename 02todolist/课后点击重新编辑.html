@@ -1,0 +1,39 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            #box{
+                width: 600px;
+                height: 300px;
+                border: 1px solid greenyellow;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+         <h1 v-model='msg' @click="fn()"><img src="./images/pic.png" alt="">{{msg}}</h1>
+         <div>
+             <input type="text" v-model="msg" v-show="istrue">
+         </div>
+        </div>
+    </body>
+    <script src="./lib/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#box',
+            data:{
+                msg:'Edit Me',
+                istrue:false
+            },
+            methods:{
+                fn(){
+                    this.istrue=!this.istrue
+                }
+            }
+        })
+    </script>
+    </html>

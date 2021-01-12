@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            width: 400px;
+            height: 380px;
+            background-color: #61a1bc;
+            padding: 30px;
+        }
+        
+        h1 {
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        ul>li {
+            background-color: #e0c921;
+            margin: 10px 0;
+            text-align: left;
+            list-style: none;
+            padding: 20px;
+            font-size: 20px;
+        }
+        
+        .price {
+            float: right;
+        }
+        
+        .border {
+            border-top: 1px solid #fff;
+            font-size: 28px;
+        }
+        
+        .active {
+            background-color: #8dc16e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Services</h1>
+        <ul>
+            <li v-for="(item,index) in arr" @click="show(item)" :class="{active:item.istrue}">{{item.name}}
+                <span class="price">{{item.price}}</span></li>
+        </ul>
+        <div class="border">
+            total: <span class="price">{{total()}}</span>
+        </div>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '.box',
+        data: {
+            arr: [{
+                name: 'web Development',
+                price: 3000,
+                istrue: false
+            }, {
+                name: 'Pyhon',
+                price: 1000,
+                istrue: false
+            }, {
+                name: 'java',
+                price: 2000,
+                istrue: false
+            }, {
+                name: 'GO',
+                price: 2200,
+                istrue: false
+            }]
+        },
+        methods: {
+            show(item) {
+                item.istrue = !item.istrue
+            },
+            total() {
+                let num = 0
+                this.arr.forEach(element => {
+                    if (element.istrue) {
+                        num += element.price
+                    }
+                });
+                return num
+            }
+        }
+
+    })
+</script>
+
+</html>

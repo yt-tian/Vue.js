@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        #box {
+            width: 200px;
+            height: 250px;
+            background-color: #c81622;
+        }
+        
+        h3 {
+            line-height: 50px;
+            background-color: #b3191b;
+            color: #fff;
+            font-weight: normal;
+            padding-left: 10px;
+        }
+        
+        ul>li {
+            padding: 0 10px;
+            line-height: 30px;
+            color: #fff;
+        }
+        
+        .fl {
+            float: right
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h3>全部商品分类</h3>
+        <ul>
+            <li v-for="(item,index) in arr">{{item.name}}
+                <span class="fl"><img v-bind:src="item.img" alt=""></span>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            arr: [{
+                    name: '家用电器',
+                    img: './images/bg.png'
+                }, {
+                    name: '手机 数码 相机',
+                    img: './images/bg.png'
+                }, {
+                    name: '电脑 办公',
+                    img: './images/bg.png'
+                }, {
+                    name: '家居 家具 家装',
+                    img: './images/bg.png'
+                }, {
+                    name: '男装 女装 珠宝',
+                    img: './images/bg.png'
+                }, {
+                    name: '鞋靴 箱包 钟表',
+                    img: './images/bg.png'
+                }
+
+            ]
+        }
+    })
+</script>
+
+</html>

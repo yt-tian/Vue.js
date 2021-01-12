@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+        }
+        
+        .throuth {
+            color: #ccc;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h1>任务列表</h1>
+        <div>
+            任务总数{{arr.length}}，还有{{check()}}未完成；【 <a href="#" @click="finish()">完成</a> 】
+        </div>
+        <ul>
+            <li v-for="(item,index) in arr">
+                <input type="checkbox" v-model="item.show">
+                <span v-show="!item.edit" @click="edit(index)" :class="{throuth:item.show}">{{item.name}}</span>
+                <input type="text" v-model="item.name" v-show="item.edit" @blur="item.edit=false">
+            </li>
+        </ul>
+        <input type="text" placeholder="请输入任务名称" v-model="msg">
+        <input type="submit" value="添加" @click="add()">
+    </div>
+
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            arr: [{
+                name: '设计1',
+                show: true,
+                edit: false
+            }, {
+                name: '设计2',
+                show: false,
+                edit: false
+            }, {
+                name: '设计3',
+                show: false,
+                edit: false
+            }, ],
+            msg: ''
+        },
+        methods: {
+            // 未完成任务
+            check() {
+                let count = 0
+                this.arr.forEach(ele => {
+                    //    console.log(ele);
+                    if (!ele.show) count++
+                });
+                return count
+            },
+            // 点击完成删除任务
+            finish() {
+                //   删除arr中的 show：true 的数据
+                let newarr = this.arr //let一个新数组
+                this.arr = []; //然后清空
+                newarr.forEach(item => {
+                    // 为flase的重新添加到arr里
+                    if (!item.show) { //如果item的show为false
+                        this.arr.push(item) //重新push到item里面
+                    }
+                })
+            },
+            // 添加任务
+            add() {
+                this.arr.push({
+                    name: this.msg,
+                    show: false
+                })
+                this.msg = ''
+            },
+            // 编辑任务
+            edit(v) {
+                // 如果edit已经被选中的话，就不能被编辑
+                if (this.arr[v].edit) return
+                this.arr[v].edit = true
+
+            }
+        }
+    })
+</script>
+
+</html>

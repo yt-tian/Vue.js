@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #box {
+            width: 500px;
+        }
+        
+        .navbar {
+            height: 30px;
+            width: 500px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background-color: #5b9bb7;
+        }
+        
+        .navbar>a {
+            display: block;
+            text-decoration: none;
+            line-height: 30px;
+            float: right
+        }
+        
+        .bg {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            background-color: #ba4990;
+        }
+        
+        .imgbox>.img {
+            float: left;
+            width: 50%;
+            list-style: none;
+        }
+        
+        .imgbox>.img img {
+            width: 100%;
+        }
+        
+        .img2 {
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .img2>img {
+            width: 20%;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <nav class="navbar">
+            <a href="#">
+                <span @click="show()" :class="{bg:istrue}"> <img src="./images/lefticon.png"  alt="" ></span>
+                <span @click="show()" :class="{bg:!istrue}">  <img src="./images/righticon.png" alt=""></span>
+            </a>
+        </nav>
+        <ul class="imgbox">
+            <li v-for="(item,index) in arr" v-show="istrue" class="img"><img :src="item.image.large" alt=""></li>
+            <li v-for="(item,index) in arr" v-show="!istrue" class="img2">
+                <img :src="item.image.small" alt="">
+                <span>{{item.title}}</span>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            istrue: false,
+            arr: [{
+                "title": "儿童社交的爱与痛（套装全2册）",
+                "url": "http://product.dangdang.com/25189806.html",
+                "image": {
+                    "large": "http://img3m6.ddimg.cn/48/21/25189806-1_w_7.jpg",
+                    "small": "http://img3m6.ddimg.cn/48/21/25189806-1_w_7.jpg",
+                }
+            }, {
+                "title": "刘墉口才大师经典套装(畅销30年超值珍藏版)",
+                "url": "http://product.dangdang.com/23995236.html",
+                "image": {
+                    "large": "http://img3m6.ddimg.cn/12/33/23995236-1_w_6.jpg",
+                    "small": "http://img3m6.ddimg.cn/12/33/23995236-1_w_6.jpg",
+                }
+            }, {
+                "title": "丹·布朗作品系列：本源",
+                "url": "http://product.dangdang.com/25253662.html",
+                "image": {
+                    "large": "http://img3m2.ddimg.cn/49/15/25253662-1_w_3.jpg",
+                    "small": "http://img3m2.ddimg.cn/49/15/25253662-1_l_3.jpg",
+                }
+            }, {
+                "title": "高兴死了!!!（我正在人生低谷，我现在高兴死了！）",
+                "url": "http://product.dangdang.com/25245058.html",
+                "image": {
+                    "large": "http://img3m8.ddimg.cn/58/32/25245058-1_w_4.jpg",
+                    "small": "http://img3m8.ddimg.cn/58/32/25245058-1_l_4.jpg",
+                }
+            }, {
+                "title": "谈判：如何在博弈中获得更多(第四版)Everything is Negotiable",
+                "url": "http://product.dangdang.com/25247638.html",
+                "image": {
+                    "large": "http://img3m8.ddimg.cn/64/22/25247638-1_l_1.jpg",
+                    "small": "http://img3m8.ddimg.cn/64/22/25247638-1_l_1.jpg",
+                }
+            }, {
+                "title": "好想去这样那样的国家（全6册）",
+                "url": "http://product.dangdang.com/25261269.html",
+                "image": {
+                    "large": "http://img3m9.ddimg.cn/33/0/25261269-1_l_3.jpg",
+                    "small": "http://img3m9.ddimg.cn/33/0/25261269-1_l_3.jpg",
+
+                }
+            }]
+        },
+        methods: {
+            show() {
+                this.istrue = !this.istrue
+            }
+        }
+    })
+</script>
+
+</html>
