@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        <h1>{{name | hello | currency}}</h1>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        // 定义过滤器
+        // 位置：创建实例之前
+        /*
+            Vue.filter('过滤器名称',function(val){
+                val:需要处理的值
+                逻辑代码
+                return 处理后的数据;
+            })
+        */
+        // 过滤器的调用：
+        // 数据 | 过滤器名称
+        // 过滤器的串联：过滤器在没有冲突的前提下，是可以进行串联使用的
+        Vue.filter('hello', function (val) {
+            return 'hello' + val;
+        });
+        Vue.filter('currency', function (val) {
+            return '￥￥￥' + val;
+        })
+        let vm = new Vue({
+            el: "#box",
+            data: {
+                name:'lily'
+            }
+        })
+    </script>
+</body>
+
+</html>

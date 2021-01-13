@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <!-- 
+            实例的生命周期：实例在从创建到销毁的过程
+            钩子函数：在实例的生命周期中会自动调用一些函数，这些函数就是钩子函数；
+            作业：我们可以利用钩子函数，来定义自己需要的一些逻辑
+            生命周期：
+                create(创建)：beforeCreate、created
+                mount(挂载)：beforeMount、mounted
+                update(更新)：beforeUpdate、updated
+                destroy(销毁)：beforeDestroy、destroyed
+         -->
+         <h1>{{msg}}</h1>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#box",
+            data:{
+                msg:"hello"
+            },
+            // 钩子函数书写的位置,和data,methods等配置项同级
+            beforeCreate:function(){
+                console.group('beforeCreate*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+                // 三者都没有创建
+            },
+            created:function(){
+                console.group('created*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+                // el没有创建、data和msg创建
+            },
+            beforeMount:function(){
+                console.group('beforeMount*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+                // el并没有正真的创建出来、而是进行了一个占位、data和msg创建
+            },
+            mounted:function(){
+                console.group('mounted*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+                // el已经替换成了真实的数据、而是进行了一个占位、data和msg创建
+            },
+            // el 是设置挂载  el:'selector' 用来将容器和数据进行关联 挂载
+            beforeUpdate:function(){
+                console.group('beforeUpdate*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+            },
+            update:function(){
+                console.group('update*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+            },
+            // 数据更新后，这两个方法会执行
+            beforeDestroy:function(){
+                console.group('beforeDestroy*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+            },
+            destroyed:function(){
+                console.group('destroyed*****************');
+                console.log('el:'+this.$el);
+                console.log('data:'+this.$data);
+                console.log('msg:'+this.msg);
+            },
+            // destroy 在实例销毁的时候执行；
+            // 实例销毁后，其身上所有的数据和方法都会销毁，不生效
+        })
+    </script>
+</body>
+</html>

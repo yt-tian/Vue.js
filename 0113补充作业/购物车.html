@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+    <style>
+        .title{
+            width: 500px;
+        }
+        .title>td{
+            background-color: #cfeef0;
+        }
+      td{
+        padding: 10px;
+        text-align: center;
+      }
+       
+        .listall{
+            margin-top: 20px;
+        }
+        table{
+            border-collapse:collapse;
+            width: 500px;
+        }
+       
+        tr:nth-of-type(odd){
+            background-color:#efefef;
+        }
+        .num{
+            display: inline-block;
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+    <!-- 名单 -->
+    <div class="listall">
+       <table>
+           <tr class="title">
+            <td></td><td>商品名称</td> <td>商品单价</td><td>商品数量</td><td>操作</td>
+           </tr>
+           <tr v-for="(item,index) in arr">      
+               <td>{{index+1}}</td>        
+            <td>{{item.shopname}}</td>
+            <td>{{item.price}}</td>
+            <td><button @click="remove(item)">-</button><span class="num">{{item.num}}</span><button @click="add(item)">+</button></td>
+            <td><button @click="remove(index)">移除</button></td>
+            </tr>
+       </table>
+      <p>
+          总价：¥<span>{{total()}}</span>
+      </p>
+    </div>
+
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#box',
+        data:{
+            arr:[
+                {shopname:'iPhoneX',price:7999,num:1},
+                {shopname:'荣耀',price:2399,num:1},
+                {shopname:'华为P20',price:3399,num:1},
+                {shopname:'小米8',price:3999,num:1},
+            ],
+
+        },
+        methods:{
+            // 方法
+            add(val){
+              val.num++
+            },
+            // 删除
+            remove(item,index){
+                 console.log(index);
+                this.arr.splice(index,1)
+            },
+            // 减
+            remove(val){
+                if(val.num==1) return
+                val.num--
+            },
+            // 总价
+            total(){
+              let count = 0;
+              this.arr.forEach(element => {
+              count += parseFloat(element.price)*parseFloat(element.num) 
+              });
+              let sum = 0
+              sum+=Number(count)
+              console.log(count);
+                return sum
+            }
+            
+        }
+    })
+</script>
+</html>

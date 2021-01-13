@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-resource-develop/dist/vue-resource.min.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="search()">search</button>
+        <!-- 
+            1,GET请求
+            this.$http.get('url',{params:{a:1,b:2}}).then(function(res){
+                处理请成功
+            }，function(res){处理请失败})
+         -->
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+
+        },
+        methods: {
+            search() {
+                // this.$http.get('a.txt').then((res)=>{
+                //     console.log('成功');
+                //     console.log(res);
+                //     console.log('内容',res.data);  
+                //     console.log('状态',res.status);  
+
+                // },(res)=>{
+                //     console.log('失败');
+                // })
+                // 2.需要向后台船体一个参数，并返回数值
+                // 需求:向后台传入两个数，求两个数的和
+                this.$http.get('sum.php', {
+                        params: {
+                            a: 3,
+                            b: 5
+                        }
+                    }).then((res) => {
+                        console.log('成功');
+                        console.log(res);
+                        console.log('内容', res.data);
+                        console.log('状态', res.status);
+                    }, (res) => {
+                        console.log('失败');
+                    })
+                    // post请求
+                    // this.$http.post('url',{a:1,b:2...},{emulateJSON:true}).then(function(res){处理请求成功的情况},
+                    // function(res){处理请求失败});
+
+                // 参数传递：{参数1：值1，参数2：值2.....}
+                // {emulateJSON:true} 模拟json数据格式，将参数传递过去
+                // 求两个数的差
+                this.$http.post('sub.php', {
+                    a: 5,
+                    b: 1
+                }, {
+                    emulateJSON: true
+                }).then(function(res) {
+                    console.log(res.data);
+                }, function(res) {
+                    console.log(res.status);
+                })
+
+                // jsonp请求
+                // this.$http.jsonp('url',{params:{a:1,b:2...}},
+                // {emulateJSON:true}).then(function(res){处理请求成功的情况},function(res){处理请求失败的情况})
+
+                // get,参数拼接url上，一般保密性的信息不要使用这种方法，对文件大小限制
+                // post,允许传递数据大小 大
+
+            }
+        }
+    })
+</script>
+
+</html>
