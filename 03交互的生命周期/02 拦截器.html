@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="search()">拦截器</button>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#box",
+            data: {
+
+            },
+            // 生命周期函数，钩子函数。 组件挂载完成后调用
+            mounted() {
+                // 添加请求拦截器
+                axios.interceptors.request.use(function (config) {
+                    // 在发送请求之前做些什么
+                    // 统一增加加载动画
+                    // 统一增加请求头 公共的请求配置。 token
+                    console.log("请求拦截");
+                    return config;
+                }, function (error) {
+                    // 对请求错误做些什么
+                    return Promise.reject(error);
+                });
+
+                // 添加响应拦截器
+                axios.interceptors.response.use(function (response) {
+                    // 对响应数据做点什么
+                    // 可以对数据做二次处理
+                    console.log("响应");
+                    // response.data = 10000; 强制性更改data
+                    return response;
+                }, function (error) {
+                    // 对响应错误做点什么
+                    return Promise.reject(error);
+                });
+            },
+            methods:{
+                search(){
+                    axios.get("http://localhost:8000/get",{
+                        params:{
+                            a:100,
+                            b:200
+                        }
+                    }).then(res=>{
+                        console.log(res);
+                        console.log(res.data);
+                    }).catch(err=>{
+                        console.log(err);
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

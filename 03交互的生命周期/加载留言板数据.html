@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <!-- <button @click="search()">显示评论</button> -->
+        <button>显示评论</button>
+        <ul>
+            <li v-for='item in arr'>
+                <h4>{{item.commentTxt}}</h4>
+                <p>{{item.createAt | time}}</p>
+            </li>
+        </ul>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-resource.js"></script>
+    <script>
+        // 过滤器定义
+        Vue.filter('time',function (val) {
+            // 只显示日期，不显示时间
+            // 字符串截取
+            // substr(start,length)
+            return val.substr(0,10)
+        });
+        let vm = new Vue({
+            el:"#box",
+            data:{
+                arr:[]
+            },
+            // 钩子函数的设置位置
+            beforeCreate:function(){
+                this.$http.get('/data.json').then(function(res){
+                        // then()中如果只传一个处理函数，那么默认是处理请求成功的情况
+                        console.log(res.data.data.commentList);
+                        this.arr = res.data.data.commentList; // 请求数据
+                    });
+            },
+            methods:{
+                // search(){
+                    
+                // }
+            }
+        });
+        /*
+            实例生命周期：
+            create： beforeCreate  created    
+                     进行数据加载    data, 数据 undefined
+                                    data, 数据 加载完成
+
+            mount：  beforeMount   mounted
+            update： beforeUpdate  updated
+            destroy：beforeDestroy destroyed 
+            钩子作业：在实例的生命周期中，为我们提供自定义逻辑的机会
+        */ 
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        {{date | formatDate}}
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script>
+        let myData = {
+            date: new Date()
+        };
+        // 月份、日期、小时等小于10前面补0
+        let padDate = (value => {
+            return value < 10 ? '0' + value : value;
+        })
+        let vm = new Vue({
+            el: "#box",
+            data: myData,  // data当前时间
+            filters: {
+                formatDate: (value => {
+                    let date = new Date(value);
+                    let year = date.getFullYear();
+                    let month = padDate(date.getMonth() + 1);
+                    let day = padDate(date.getDate());
+                    let hours = padDate(date.getHours());
+                    let minutes = padDate(date.getMinutes());
+                    let seconds = padDate(date.getSeconds());
+                    return year + '-' + month + '-' + day + '-' + ' ' + hours + ':' + minutes + ':' + seconds;
+                })
+            },
+            mounted: ()=> {
+                let thiss = this;
+                this.timer = setInterval(function () {
+                    thiss.date = new Date();
+                }, 1000)
+            }, 
+            beforeDestroy: function () {
+                if (this.timer) {
+                    clearInterval(this.timer); 
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
