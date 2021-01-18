@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <!-- 调用组件 -->
+        <my-component></my-component>
+        <my></my>
+       {{msg1}}
+        <conponent></conponent>
+    </div>
+    <template id="myt">
+       <div>
+       <a href="#" @click="fn">百度</a> {{msg}}
+       </div>
+    </template>
+</body>
+</html>
+<script src="./lib/vue.js"></script>
+<script>
+    // 第一种写法
+    Vue.component("my-component",Vue.extend({
+        template:'<div>组件</div>'
+    }))
+    // 简写：
+    Vue.component("my",{
+        template:'<div>组件yi</div>'
+    })
+    // 如果有多个标签：
+    Vue.component("conponent",{
+        template:'#myt',
+       data(){
+        //    里面的参数，要用retrun来返回
+           return {
+               msg:'sfsdfdsfd'
+           }
+       },
+    // 调用方法
+    methods:{
+        fn(){
+            console.log(1);
+        }
+    }
+
+    })
+    let vm = new Vue({
+        el:'#box',
+        data:{
+          msg1:'德国人的广告费'
+        }
+    })
+</script>

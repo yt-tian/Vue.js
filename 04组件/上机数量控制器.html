@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        #box{
+            width: 100%;
+            height: 200px;
+            line-height: 100px;
+            text-align: center;
+            border: 1px solid greenyellow;
+        }
+        span{
+            padding: 20px;
+            width: 100px;
+            height: 30px;
+            margin-right: 20px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <parent >
+            
+        </parent>
+    </div>
+    <template id="parentT" >
+        <div >
+           
+         <child :number="msg"></child>
+        </div>
+    </template>
+    <template id="chlidT">
+        <div class="spanbox">
+            <p>
+                {{number}}
+            </p>
+            <span @click="jian()">减小了</span>
+            <span @click="jia()">增加了</span>
+        
+        </div>
+    </template>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#box',
+        data:{
+        },
+        components:{
+           parent:{
+               
+               template:'#parentT',
+               data(){
+                        return{
+                            msg:0,
+                        }
+                    },
+               components:{
+                   child:{
+                    props:['number'],
+                    template:'#chlidT',
+                    methods:{
+                        jian(){
+                       this.number--
+                        },
+                        jia(){
+                           this.number++
+                        }
+                    },
+                    
+                   }
+               }
+           }
+        }
+    })
+</script>
+</html>

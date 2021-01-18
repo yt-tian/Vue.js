@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <mytest :msg="pmsg"></mytest>
+    </div>
+    <template id="mydiv">
+        <div>
+            子接收父传的值：{{msg}}
+
+           <p>
+            父接收子传的值：{{fmsg}}
+           </p> 
+           <!-- 接收语法： @自定义的事件=调用的函数 -->
+            <child @fn="getChildmsg"></child>
+        </div>
+    </template>
+    <template id="chT">
+        <div>
+            <button @click="fn">子传给父</button>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="./lib/vue.js"></script>
+<script>
+    // 全局组件 - 子组件
+    Vue.component("mytest", {
+        props: ['msg'],
+        template: "#mydiv",
+        data() {
+            return {
+                fmsg: '父的数据'
+            }
+        },
+        methods:{
+           getChildmsg(incmsg){
+               console.log(incmsg);
+               this.fmsg = incmsg
+           }
+        },
+        components: {
+            child: {
+                template: "#chT",
+                data() {
+                    return {
+                        cmsg: '子的数据'
+                    }
+                },
+                methods: {
+                    fn() {
+                        //   语法：   $emit("自定义事件", 传递的值)
+                        this.$emit("fn", this.cmsg)
+                    }
+                }
+            }
+        }
+    })
+
+    // Vue实例 父组件
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            pmsg: '父给子传的数据'
+        }
+    })
+</script>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/header.css">
+</head>
+<body>
+    <div id="box">
+        <!-- 调用组件 -->
+        <my_header title="小组" lefticon="./images/search.png" righticon="./images/chat.png"></my_header>
+        <my_header title="广播" lefticon="./images/ic_status_search_user.png" righticon="./images/chat.png"></my_header>
+        <my_header title="书影音" lefticon="./images/search.png" righticon="./images/chat.png"></my_header>
+        <my_header title="我的" righticon="./images/ic_settings.png"></my_header>
+        
+        <my_header righticon="./images/ic_chat_white.png" bgtwo="background-color:#42c055"></my_header>
+        <my_footer> </my_footer>
+    </div>
+    <template id="myt">
+       <header id="header" :style="bgtwo">
+         <h4>{{title}}</h4>
+               <a href="#">
+                <img :src="lefticon" alt="" class="left_img">
+               </a> 
+               <a href="#">
+                <img :src="righticon" alt="" class="right_img">
+               </a>
+               <div class="searchbox">
+                   <img src="./images/ic_search_gray.png"  alt="" class="searchic">
+                   <img src="./images/ic_scan_gray.png"  class="sao" alt="">
+                <input type="search" class="search" placeholder="影视 图书 唱片 小组等">
+               </div>
+       </header>
+    </template>
+    <template id="footer">
+       <footer class="myfooter">
+       <item txt="首页"   img1="./images/1.png"></item>
+       <item txt="书影音" img1="./images/2.png"></item>
+       <item txt="广播"   img1="./images/3.png"></item>
+       <item txt="小组"   img1="./images/4.png"></item>
+       <item txt="我的"   img1="./images/5.png"></item>
+       </footer>
+    </template>
+    <template id="myitem">
+        <a href="#">
+            <!-- ./images/1.png -->
+            <img :src="img1" alt="">
+            {{txt}}
+        </a>
+    </template>
+</body>
+</html>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#box',
+        data:{
+        },
+        components:{
+            my_header:{
+                props:['title','lefticon','righticon','bgtwo'],
+                template:'#myt',
+            },
+            my_footer:{
+              template:"#footer",
+              components:{
+                  item:{
+                      props:['txt','img1'],
+                      template:"#myitem",
+                  }
+              }
+            }
+        },
+    })
+</script>

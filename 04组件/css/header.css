@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#header {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ccc;
+  color: #484848;
+}
+
+#header .left_img {
+  position: absolute;
+  top: 15px;
+  right: 60px;
+  width: 30px;
+}
+
+#header .right_img {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 30px;
+}
+
+#header .searchbox {
+  position: relative;
+  width: 90%;
+  height: 30px;
+}
+
+#header .searchbox .searchic {
+  position: absolute;
+  width: 20px;
+  top: 22px;
+  left: 20px;
+}
+
+#header .searchbox .sao {
+  position: absolute;
+  width: 20px;
+  top: 22px;
+  right: 20px;
+}
+
+#header .searchbox .search {
+  width: 90%;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  text-indent: 2.5em;
+}
+
+.myfooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 70px;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #999;
+}
+
+.myfooter a {
+  text-decoration: none;
+  color: #999;
+  display: block;
+  text-align: center;
+}
+
+.myfooter a img {
+  width: 60px;
+  vertical-align: middle;
+}

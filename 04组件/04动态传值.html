@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+           <mytest :msg="pmsg"></mytest>
+    </div>
+    <template id="mydiv">
+        <div>
+            子接受的值：{{msg}}
+        </div>
+    </template>
+</body>
+</html>
+<script src="./lib/vue.js"></script>
+<script>
+    // 全局组件 - 子组件
+   Vue.component("mytest",{
+       props:['msg'],
+       template:"#mydiv"
+   })
+
+    // Vue实例 父组件
+    let vm = new Vue({
+        el:'#app',
+        data:{
+           pmsg:'父的数据'
+        }
+    })
+</script>

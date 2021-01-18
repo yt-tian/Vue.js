@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            text-align: center;
+            width: 400px;
+            height: 200px;
+            border: green 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <parents></parents>
+    </div>
+    <template id="myparent">
+        <div>
+            <!-- 接收到的子组件的值 -->
+            {{msg}}
+            <!--接收监听 @fn自定义的事件 getmsg为调用父接收事件的处理函数 -->
+            <child @fn="getmsg"></child>
+        </div>
+    </template>
+    <template id="chT">
+        <div>
+            <button @click="fn">点击计数</button>
+        </div>
+    </template>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    Vue.component("parents", {
+        template: "#myparent",
+        data() {
+            return {
+                msg: 0,
+            }
+        },
+        methods: {
+            // 接收监听（参数里就是触发监听$emit里的值）
+            getmsg(incmsg) {
+                console.log(incmsg);
+                this.msg = incmsg
+            }
+        },
+        components: {
+            child: {
+                template: "#chT",
+                data() {
+                    return {
+                        cmsg: 1
+                    }
+                },
+                methods: {
+                    fn() {
+                        // 传递参数，$emit("自定义事件名"，传递的值) 触发fn监听
+                        this.$emit("fn", this.cmsg++)
+                    }
+                }
+            }
+        }
+    })
+
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            // msg1: 2
+        }
+    })
+</script>
+
+</html>
