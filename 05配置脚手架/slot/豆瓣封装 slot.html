@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         *{
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+            position: relative;
+        }
+        .header img{
+            position: absolute;
+            height: 30px;
+            right: 10px;
+            top: 10px;
+        }
+        .header img.leftIcon{
+            right: 50px;
+        }
+        .header img.righticon{
+            right: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- 调用组件 -->
+        <myheader title="书影音">
+            <template v-slot:lefticon>
+                <img src="./images/ic_create_group_chat_blue.png" alt="" class="lefticon">
+            </template>
+            <template v-slot:righticon>
+                <img src="./images/ic_actionbar_search_icon.png" alt="" class="righticon">
+            </template>
+        </myheader>
+        <myheader title="我的">
+            <template #righticon>
+                <img src="./images/ic_create_group_chat_blue.png" alt="">
+            </template>
+        </myheader>
+    </div>
+    <template id="myheaderT">
+        <header class="header">
+            {{title}} 
+       
+            <slot name="lefticon"></slot>
+            <slot name="righticon"></slot>
+        </header>
+    </template>
+    <script src="./js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#box",
+            data:{
+
+            },
+            components:{
+                myheader:{
+                    props:['title'],
+                    template:"#myheaderT",
+                },
+            }
+        })
+    </script>
+</body>
+</html>

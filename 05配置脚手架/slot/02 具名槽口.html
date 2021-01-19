@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        <myslot>
+            <template slot="header">
+                旧写法：具名槽口
+            </template>
+        </myslot>
+        <myslot>
+            <template v-slot:header>
+                <div>
+                   新写法：具名槽口 header
+                </div>
+            </template>
+            <template #footer>
+                <div>
+                   新写法：具名槽口 footer
+                </div>
+            </template>
+        </myslot>
+    </div>
+    <template id="myslotT">
+        <div>
+            <slot name="header"></slot>
+            <h1>这里是带有slot的组件end</h1>
+            <slot name="footer"></slot>
+        </div>
+    </template>
+    <script src="./js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#box",
+            data: {},
+            components: {
+                myslot: {
+                    template: "#myslotT"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

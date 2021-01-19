@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+    <div id="box">
+        <!-- 调用显示父组件内容 -->
+        <parent></parent>
+    </div>
+    <template id="parentT">
+        <div>
+           <h1>父组件：{{pmsg}}</h1> 
+           <!-- 调用子组件 -->
+           <child :inpmsg="pmsg" @sendmsg = "getVal"></child>
+           <div>
+               接收到子的数据为：{{incmsg}}
+           </div>
+        </div>
+    </template>
+    <template id="childT">
+        <div>
+            <h1>子组件：{{cmsg}}</h1>
+            <div>
+                接收到父的数据为： {{inpmsg}}
+            </div>
+            <button @click="fn">传递数据</button>
+        </div>
+    </template>
+    <script> 
+        let vm = new Vue({
+            el:'#box', 
+            data:{
+                
+            }, 
+            components:{
+                parent:{
+                    template:"#parentT",
+                    data(){
+                        return {
+                            pmsg:'父的data',
+                            incmsg:''
+                        }
+                    },
+                    methods:{
+                        getVal(incmsg){
+                            console.log(incmsg);
+                            this.incmsg = incmsg;
+                        }
+                    },
+                    components:{
+                        child:{
+                            // 接收数据
+                            props:["inpmsg"],
+                            template:"#childT",
+                            data(){
+                                return {
+                                    cmsg:"子的data"
+                                }
+                            },
+                            methods:{
+                                fn(){
+                                    //emit() 触发事件，传递数据
+                                    this.$emit("sendmsg",this.cmsg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

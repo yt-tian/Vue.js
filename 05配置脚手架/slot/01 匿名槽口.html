@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <myslot>
+            <h3>标题</h3>
+        </myslot>
+    </div>
+    <template id="myslotT">
+        <div>
+            <h1>这里是带有slot的组件start</h1>
+            <slot></slot>
+            <h1>这里是带有slot的组件end</h1>
+        </div>
+    </template>
+    <script src="./js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#box",
+            data:{},
+            components:{
+                myslot:{
+                    template:"#myslotT"
+                }
+            }
+        })
+    </script>
+</body>
+</html>
