@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        ul{
+            color: skyblue;
+        }
+        ul li span{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #ccc;
+            margin: 8px;
+        }
+        button{
+            width: 80px;
+            line-height: 40px;
+            border: 1px solid #ccc;
+            background:none;
+            color: skyblue;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>下一页</button></li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="./lib/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        methods: {
+            
+        },
+
+    })
+</script>
