@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        li{
+            list-style: none;
+            display: inline-block;
+            margin: 20px 10px;
+        }
+        a{
+            text-decoration: none;
+        }
+        .show{
+            width: 400px;
+            height:300px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="show">
+            <!-- 占位 -->
+            <router-view></router-view>
+        </div>
+          <ul>
+              <li><router-link to="/home">home</router-link></li>
+              <li><router-link to="/news">news</router-link></li>
+              <li><router-link to="/hot">hot</router-link></li>
+          </ul>
+          
+    </div>
+    <template id="home">
+        <div>
+            <h2>首页</h2>
+            <ul>
+                <li>今日热点</li>
+                <li>体育新闻</li>
+                <li>关爱八卦成长协会</li>
+            </ul>
+        </div>
+    </template>
+    <template id="news">
+        <div>
+            <h1>news</h1>
+           <router-link to="/news/film">film</router-link>
+           <router-link to="/news/tv">tv</router-link>
+        </div>
+    </template>
+    <template id="hotT">
+        <div>
+         <h1>热门新闻</h1>
+         <ul>
+             <li><router-link to="/hot/1/zhangsan">1,第一条热门新闻</router-link></li>
+             <li><router-link to="">2,第二条热门新闻</router-link></li>
+             <li><router-link to="">3,第三条热门新闻</router-link></li>
+         </ul>
+
+        </div>
+    </template>
+    <template id="detailT">
+        <div>
+            <h3>新闻详细页面</h3>
+            <span>接收传递过来的id：{{$route.params.id}} {{}}</span>s
+
+        </div>
+
+    </template>
+</body>
+</html>
+<script src="./lib/vue.js"></script>
+<script src="./lib/vue-router.js"></script>
+<script>
+    // 1，准备路由所需模块
+    var Home = Vue.extend({
+        template:'#home'
+    })
+    var News = Vue.extend({
+        template:'#news'
+    })
+    var Hot = Vue.extend({
+        template:'#hotT'
+    })
+    var Hotdetail = Vue.extend({
+        template:'#detailT'
+    })
+    // 2,填写路径信息
+    var arr = [
+        // {path:'url',component:组件名}
+        {path:'/home',component:Home},
+        {path:'/news',component:News,children:[
+            {path:'film',component:{
+            template:'<p>电影：绣春刀，战狼2</p>'
+            }},
+            {path:'tv',component:{
+            template:'<p>发的，第三个，分隔符</p>'
+            }},
+            {path:'',component:{
+            template:'<p>电视的内容</p>'
+            }},
+        ]},
+        {path:'/hot',component:Hot},
+        // 传参配置
+        {path:'/hot/:id/:name',component:Hotdetail},
+    ]
+    // 3,创建路由对象
+    var router = new VueRouter({
+        // 配置项 routes:存的所有路由信息
+        routes:arr
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        // 第二种方式路由重定向
+        beforeCreate() {
+            // 只要页面创建了就可以执行
+            this.$router.push('/home')
+        },
+        // 4,添加路由配置项 ：配置项名称和后方配置项名相同可以简写
+        router
+    })
+    // 第一种 路由重定向
+    // push():路由对象自带方法，进行路由跳转,每次刷新都会回到push的路由页
+//    router.push('./home')
+</script>

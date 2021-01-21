@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        li{
+            list-style: none;
+            display: inline-block;
+            margin: 20px 10px;
+        }
+        a{
+            text-decoration: none;
+        }
+        .show{
+            width: 400px;
+            height:300px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+          <ul>
+              <li><router-link to="/home">home</router-link></li>
+              <li><router-link to="/news">news</router-link></li>
+              <li><router-link to="/hot">hot</router-link></li>
+          </ul>
+          <div class="show">
+              <router-view></router-view>
+          </div>
+    </div>
+</body>
+</html>
+<script src="./lib/vue.js"></script>
+<script src="./lib/vue-router.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        router: new VueRouter({
+            // 跟routes同级 ，有一个 mode ：'history' 一般不用，需要结合后台代码
+            mode:'history',
+            routes:[
+                // 路径命名：'/+小写单词''
+                {path:'/home',component:{
+                    template:'<h2>首页</h2>'
+                }},
+                {path:'/news',component:{
+                    template:'<h2>新闻</h2>'
+                }},
+                {path:'/hot',component:{
+                    template:'<h2>热点</h2>'
+                }},
+            ]
+        })
+    })
+</script>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        li{
+            list-style: none;
+            display: inline-block;
+            margin: 20px 10px;
+        }
+        a{
+            text-decoration: none;
+        }
+        .show{
+            width: 400px;
+            height:300px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+          <ul>
+              <li><router-link to="/home">home</router-link></li>
+              <li><router-link to="/news">news</router-link></li>
+              <li><router-link to="/hot">hot</router-link></li>
+          </ul>
+          <h1>编程式路由</h1>
+          <button @click="toIndex()">去首页</button>
+          <button @click="toNews()">去新闻页</button>
+          <button @click="toHot()">去热门</button>
+          <button @click="toG0()">前进</button>
+          <button @click="toBack()">后退</button>
+          <button @click="toreplace()">去首页</button>
+
+          <div class="show">
+              <router-view></router-view>
+          </div>
+    </div>
+</body>
+</html>
+<script src="./lib/vue.js"></script>
+<script src="./lib/vue-router.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        router: new VueRouter({
+            routes:[
+                // 路径命名：'/+小写单词''
+                {path:'/home',name:'home',component:{
+                    template:'<h2>首页</h2>'
+                }},
+                {path:'/news',name:'news',component:{
+                    template:'<h2>新闻</h2>'
+                }},
+                {path:'/hot',name:'hot',component:{
+                    template:'<h2>热点</h2>'
+                }},
+            ]
+        }),
+        methods: {
+            toIndex(){
+                // 字符串方式访问
+                this.$router.push('home')
+                // 携带查询参数
+                this.$router.push({path:'/home',query:{id:1,name:'zhangsan'}})
+                console.log("传递的参数是",this.$route.query.name);
+            },
+            toNews(){
+                // 对象方式访问
+                this.$router.push({name:'news'})
+            },
+            toHot(){
+                this.$router.push("hot")
+            },
+            toG0(){
+                this.$router.go(1)
+            },
+            toBack(){
+                this.$router.go(-1)
+            },
+            toreplace(){
+                // 跟 router.push很像，唯一不同的是，它不会向history添加新记录
+                this.$router.replace("home")
+            }
+        },
+    })
+</script>

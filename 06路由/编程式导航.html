@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="./css/bootstrap-theme.min.css"> -->
+    <style>
+        .padstyle{
+            width: 300px;height: 100px;background-color: aqua;text-align: center;
+        }
+        .show{
+            width: 100%;height: 200px;background-color: #ddd;
+        }
+        h1{
+            line-height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header"> <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle
+                            navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                            class="icon-bar"></span> </button> <a class="navbar-brand" href="#">云题库</a> </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active" ><li><router-link to="/home">首页 <span class="sr-only">(current)</span></router-link></li>
+                        <li><router-link to="/which">关于我们</router-link></li>
+                        <li class="dropdown"> <router-link to="/money" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">账户中心 <span class="caret"></span></router-link>
+                            <ul class="dropdown-menu">
+                                <li> <router-link to="/money/psd">密码管理</router-link></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <button class="btn btn-primary" @click="toback()">后退</button>
+        <button class="btn btn-primary" @click="togo()">前进</button>
+        <button class="btn btn-primary" @click="totwo()">跳步2</button>
+        <button class="btn btn-primary" @click="topush()">push</button>
+        <button class="btn btn-primary" @click="toreplace()">replace</button>
+        <div class="show">
+            <router-view></router-view>
+        </div>
+    </div>
+    <template id="index">
+        <div>
+            <h1>首页内容</h1>   
+        </div>
+       
+    </template>
+    <template id="money">
+        <div>
+            <h1>账户中心</h1>
+            <div class="padstyle">
+                <router-view></router-view>
+            </div>
+      </div>
+    </template>
+</body>
+
+</html>
+<script src="./lib/jquery3.5.1.js"></script>
+<!-- <script src="./lib/bootstrap.js"></script> -->
+<script src="./lib/vue.js"></script>
+<script src="./lib/vue-router.js"></script>
+<script src="./lib/bootstrap.min.js"></script>
+<script>
+    let Home = {template:'#index'}
+    let Which = {template:'<h1>关于我们</h1>'}
+    let Money = {template:'#money'}
+    let Register = {template:'<h1>登录内容</h1>'}
+     // 2,填写路径信息
+     var arr = [
+        // {path:'url',component:组件名}
+        {path:'/home',component:Home},
+        {path:'/which',component:Which},
+        {path:'/money',component:Money,children:[
+            {path:'psd',component:{
+            template:'<p>密码管理内容</p>'
+            }},
+        ]},
+        {path:'/register',component:Register},
+    ]
+    // 3,创建路由对象
+    var router = new VueRouter({
+        // 配置项 routes:存的所有路由信息
+        routes:arr
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        router,
+        methods: {
+            toback(){
+                this.$router.go(1)
+            },
+            togo(){
+                this.$router.go(-1)
+
+            },
+            totwo(){
+                this.$router.go(-2)
+
+            },
+            topush(){
+                this.$router.push('home')
+            },
+            toreplace(){
+                // 跟 router.push很像，唯一不同的是，它不会向history添加新记录
+                this.$router.replace('which')
+            }
+        },
+    })
+</script>

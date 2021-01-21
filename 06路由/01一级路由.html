@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+            float: left;
+            padding: 10px;
+        }
+        .bg{
+            width: 300px;
+            height: 300px;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li>
+                <router-link to="/home">首页</router-link>
+            </li>
+            <li>
+                <router-link to="/news">新闻</router-link>
+            </li>
+            <li>
+                <router-link to="/hot">热点</router-link>
+            </li>
+        </ul>
+        <div class="bg">
+            <router-view></router-view>
+        </div>
+    </div>
+    <template id="index">
+        <div >
+            <br/>
+            <h1>首页内容</h1>
+            <router-link to="/home/flim">电影</router-link>
+            <router-link to="home/flim">读书</router-link>
+        <router-view></router-view>
+
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="./lib/vue.js"></script>
+<script src="./lib/vue-router.js"></script>
+<script>
+    // 创建路由模块
+    let Home = { template: '#index' }
+    let News = { template: '<h1>新闻内容</h1>' }
+    let Hot = { template: '<h1>热点内容</h1>' }
+    // 创建路由对象
+    let routes = [
+        { path: '/home', component: Home, children: [
+                {
+                    // 二级路由path不用加/
+                    path: 'flim', component: {
+                        template: '<h1>电影内容</h1>'
+                    }
+                }
+            ] },
+        {
+            path: '/news', component: News
+        },
+        { path: '/hot', component: Hot },
+        { path: '/', redirect: 'flim' },
+    ]
+    //    创建路由
+    let router = new VueRouter({
+        routes
+    })
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        beforeCreate() {
+            // this.$router.push('./home')     
+        },
+        router
+    })
+    // router.push('./news')
+</script>
